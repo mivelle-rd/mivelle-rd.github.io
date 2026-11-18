@@ -1,0 +1,4 @@
+name: Actualizar Press Kit
+on: {push: {branches: [main], paths: ['fotos/**']}, workflow_dispatch: {}}
+permissions: {contents: write}
+jobs: {build: {runs-on: ubuntu-latest, steps: [{uses: 'actions/checkout@v4', with: {fetch-depth: 0}}, {uses: 'actions/setup-python@v5', with: {python-version: '3.12'}}, {run: 'pip install reportlab pillow'}, {run: 'python pressbuild/build.py'}, {name: Guardar PDF nuevo, run: 'git config user.name mivelle-bot && git config user.email mivelle-bot@users.noreply.github.com && git add Mivelle-Press-Kit.pdf && (git diff --cached --quiet || git commit -m Actualiza-Press-Kit) && git push'}]}}
