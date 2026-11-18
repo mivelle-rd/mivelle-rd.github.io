@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mivelle · Catálogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;600;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#4B2A3A;--dark:#3A1628;--paper:#FBF1F0;--mist:#F3DCDF;--gold:#8F6A1C}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,sans-serif}
+header{text-align:center;padding:40px 16px 20px}
+.script{font-family:'Great Vibes',cursive;font-size:44px;color:var(--gold);line-height:1}
+h1{font-family:'Tenor Sans',serif;font-weight:400;font-size:34px;letter-spacing:.14em;margin:6px 0 8px;text-transform:uppercase}
+.sub{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px}
+.btn{display:inline-block;padding:11px 20px;border-radius:999px;background:var(--dark);color:#fff;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.btn.alt{background:#DDB95F;color:var(--dark)}
+.grid{max-width:1100px;margin:24px auto 60px;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 6px 22px rgba(75,42,58,.10);display:flex;flex-direction:column}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--mist)}
+.card .b{padding:14px 16px 18px;text-align:center}
+.card h2{font-family:'Tenor Sans',serif;font-weight:400;font-size:19px;margin:0 0 10px}
+.card a{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);border-radius:999px;padding:8px 14px;display:inline-block}
+.msg{text-align:center;padding:40px 16px;opacity:.7}
+footer{text-align:center;font-size:12px;padding:0 16px 40px;opacity:.7}
+</style></head><body>
+<header>
+<div class="script">Crafted in detail, just for you</div>
+<h1>Mivelle</h1>
+<div class="sub">Bolsos hechos a mano con cristales · República Dominicana</div>
+<div class="actions">
+<a class="btn" href="Mivelle-Press-Kit.pdf">Press Kit (PDF)</a>
+<a class="btn alt" href="https://wa.me/18496079595">Escríbelo por WhatsApp</a>
+</div>
+</header>
+<main class="grid" id="grid"><div class="msg">Cargando catálogo…</div></main>
+<footer>@mivelle.rd · 849-607-9595</footer>
+<script>
+var OWNER="mivelle-rd",REPO="mivelle-rd.github.io",IG="https://www.instagram.com/mivelle.rd/";
+function nice(f){return f.replace(/\.[^.]+$/,"").replace(/[_-]+/g," ").trim();}
+fetch("https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/fotos")
+.then(function(r){if(!r.ok)throw 0;return r.json();})
+.then(function(list){
+  var files=list.filter(function(x){return /\.(jpe?g|png|webp)$/i.test(x.name);});
+  files.sort(function(a,b){return a.name.localeCompare(b.name,"es");});
+  var g=document.getElementById("grid");
+  if(!files.length){g.innerHTML='<div class="msg">Pronto, nuevas piezas.</div>';return;}
+  g.innerHTML=files.map(function(x){var n=nice(x.name);
+    return '<article class="card"><img loading="lazy" src="fotos/'+encodeURIComponent(x.name)+'" alt="'+n+'"><div class="b"><h2>'+n+'</h2><a href="'+IG+'" target="_blank" rel="noopener">Ver en Instagram</a></div></article>';}).join("");
+}).catch(function(){document.getElementById("grid").innerHTML='<div class="msg">No se pudo cargar el catálogo. <a href="'+IG+'">Ver en Instagram</a></div>';});
+</script></body></html>
