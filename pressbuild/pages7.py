@@ -151,8 +151,7 @@ def piece_page(i):
     pg.shape(P().M(tx, y).L(tx + 330, y), stroke=BROWN, sw=0.5, a=.25)
     msg = f'Hola Mivelle, quiero información sobre la cartera {name.replace(chr(10), " ")} (N.º {i + 1:02d}).'
     from urllib.parse import quote
-    pill(pg, tx, 418, 160, 30, 'DISPONIBLE', BROWN, IVORY, link=('url', 'https://wa.me/18496079595?text=' + quote(msg)), name='Boton Disponible')
-    pill(pg, tx + 172, 418, 188, 30, 'PÍDELA TUYA POR WHATSAPP', PLATE, BROWN, link=('url', 'https://wa.me/18496079595?text=' + quote(msg)), name='Boton WhatsApp')
+    pill(pg, tx, 418, 160, 30, 'DISPONIBLE', None, BROWN, stroke=BROWN, link=('url', 'https://wa.me/18496079595?text=' + quote(msg)), name='Boton Disponible')
     # navegación
     prev_p = n - 1 if i > 0 else 8
     next_p = n + 1 if i < len(PIECES) - 1 else P0 + len(PIECES)
@@ -276,7 +275,7 @@ def p_cat(part, n):
         pg.text(tx, y + 32, 140, [name], 'Nm', link=pp)
         pg.text(tx, y + (78 if (len(name) > 12) else 58), 140, [forma], 'Small')
         pill(pg, tx, y + ch - 62, 136, 24, 'VER PIEZA', IVORY, BROWN, link=pp, name=f'Ver pieza {start + i + 1}', stroke=BROWN)
-        pill(pg, tx, y + ch - 34, 136, 24, 'PÍDELA TUYA', PLATE, BROWN, link=('url', 'https://wa.me/18496079595?text=' + __import__('urllib.parse', fromlist=['quote']).quote('Hola Mivelle, quiero pedir la cartera ' + name.replace(chr(10), ' ') + '. ¿Está disponible?')), name=f'Pidela {start + i + 1}')
+        pill(pg, tx, y + ch - 34, 136, 24, 'DISPONIBLE', None, BROWN, stroke=BROWN, link=('url', 'https://wa.me/18496079595?text=' + __import__('urllib.parse', fromlist=['quote']).quote('Hola Mivelle, quiero pedir la cartera ' + name.replace(chr(10), ' ') + '. ¿Está disponible?')), name=f'Pidela {start + i + 1}')
     foot(pg, n)
     return pg
 
